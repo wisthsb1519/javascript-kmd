@@ -39,16 +39,9 @@ var waitForConfirmation = async function(algodclient, txId) {
 };
 
 //Recover accounts used in example
-var account1_mnemonic = "portion never forward pill lunch organ biology" +
-    " weird catch curve isolate plug innocent skin grunt" +
-    " bounce clown mercy hole eagle soul chunk type absorb trim";
-var account2_mnemonic = "place blouse sad pigeon wing warrior wild script" +
-    " problem team blouse camp soldier breeze twist mother" +
-    " vanish public glass code arrow execute convince ability" +
-    " there";
-var account3_mnemonic = "image travel claw climb bottom spot path roast" +
-    " century also task cherry address curious save item" +
-    " clean theme amateur loyal apart hybrid steak about blanket"
+var account1_mnemonic = "face pluck remind spawn annual vivid tired margin romance film leopard brand park adjust paddle excuse layer level then book video exact crumble abstract garlic";
+var account2_mnemonic = "era upon mistake prevent furnace under alter decrease remember child great royal wash ancient silent text obscure woman cruel debris timber ecology rent abstract autumn";
+var account3_mnemonic = "reflect rude enroll control dad drama debate come saddle borrow broccoli avocado trophy lottery place salute illegal bone present divert region evoke surge abandon expose"
 
 var recoveredAccount1 = algosdk.mnemonicToSecretKey(account1_mnemonic);
 var recoveredAccount2 = algosdk.mnemonicToSecretKey(account2_mnemonic);
