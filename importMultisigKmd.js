@@ -29,14 +29,17 @@ const kmdclient = new algosdk.Kmd(kmdtoken, kmdserver, kmdport);
     const mparams = {
         version: 1,
         threshold: 2,
-        addrs: [account1.addr, account2.addr],
+        // addrs: [account1.addr, account2.addr],
+        addrs: [account1.publicKey, account2.publicKey],
     };
 
+    let msig_addresses = [account1.addr, account2.addr];
     var multsigaddr = algosdk.multisigAddress(mparams);
     console.log("Here is my KMD multisig account: " + multsigaddr);
 
     try {
-        let importedMultisig = kmdclient.importMultisig(wallethandle, multsigaddr);
+        let importedMultisig = await kmdclient.importMultisig(wallethandle, 1, 2, msig_addresses);
+        // let importedMultisig = await kmdclient.importMultisig(wallethandle, mparams);
         console.log("Imported Multisig Account:", importedMultisig);
     } catch(error) {
         console.error(error);
