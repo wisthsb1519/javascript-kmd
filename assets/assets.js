@@ -66,12 +66,12 @@ let algodclient = new algosdk.Algod(token, server, port);
     
     // Asset Creation:
     // The first transaciton is to create a new asset
-    // Get last round and suggested tx fee
-    // We use these to get the latest round and tx fees
+    // Get last round and suggested tx fee.
+    // We use these to get the latest round and tx fees.
     // These parameters will be required before every 
     // Transaction
     // We will account for changing transaction parameters
-    // before every transaction in this example
+    // before every transaction in this example.
     await getChangingParms(algodclient);
     let note = undefined; // arbitrary data to be stored in the transaction; here, none is stored
 
@@ -106,7 +106,7 @@ let algodclient = new algosdk.Algod(token, server, port);
 
 
     // Change Asset Configuration:
-    // Change the manager using an asset configuraiton transactoin
+    // Change the manager using an asset configuraiton transaction
 
     // First update changing transaction parameters
     // We will account for changing transaction parameters
@@ -116,7 +116,10 @@ let algodclient = new algosdk.Algod(token, server, port);
     // Asset configuration specific parameters
     // all other values are the same so we leave 
     // Them set.
-    // specified address can change reserve, freeze, clawback, and manager
+    // specified address can change reserve, freeze, clawback, and manager.
+    // You must respecify existing addresses to keep them the same; 
+    // leaving a field blank is the same as turning that feature off for this asset.
+
     manager = recoveredAccount1.addr;
 
     // Note that the change has to come from the existing manager
@@ -137,9 +140,9 @@ let algodclient = new algosdk.Algod(token, server, port);
     console.log(assetInfo);
 
     // Opting in to an Asset:
-    // Opting in to transact with the new asset
-    // Allow accounts that want recieve the new asset
-    // Have to opt in. To do this they send an asset transfer
+    // Opting in to transact with the new asset.
+    // Accounts that want to recieve a new asset
+    // have to opt in. To do this they send an asset transfer
     // of the new asset to themseleves 
     // In this example we are setting up the 3rd recovered account to 
     // receive the new asset
@@ -170,7 +173,7 @@ let algodclient = new algosdk.Algod(token, server, port);
     // wait for transaction to be confirmed
     await waitForConfirmation(algodclient, opttx.txId);
 
-    //You should now see the new asset listed in the account information
+    //You should now see the new asset listed in the account information with a 0 balance for the asset
     act = await algodclient.accountInformation(recoveredAccount3.addr);
     console.log("Account Information for: " + JSON.stringify(act.assets));
 
@@ -201,7 +204,7 @@ let algodclient = new algosdk.Algod(token, server, port);
     // wait for transaction to be confirmed
     await waitForConfirmation(algodclient, xtx.txId);
 
-    // You should now see the 10 assets listed in the account information
+    // You should now see the 10 units of the asset listed in the account information
     act = await algodclient.accountInformation(recoveredAccount3.addr);
     console.log("Account Information for: " + JSON.stringify(act.assets));
 
@@ -209,7 +212,7 @@ let algodclient = new algosdk.Algod(token, server, port);
     // If the freeze address is set "", it will no longer be possible to do this.
     // In this example we will now freeze account3 from transacting with the 
     // The newly created asset. 
-    // Thre freeze transaction is sent from the freeze acount
+    // The freeze transaction is sent from the freeze acount
     // Which in this example is account2 
     from = recoveredAccount2.addr;
     freezeTarget = recoveredAccount3.addr;
@@ -238,9 +241,8 @@ let algodclient = new algosdk.Algod(token, server, port);
 
     // Revoke and Asset:
     // The asset was also created with the ability for it to be revoked by 
-    // the clawbackaddress. If the asset was created or configured by the manager
-    // to not allow this by setting the clawbackaddress to "" then this would 
-    // not be possible.
+    // the clawbackaddress. If the asset was created or configured with the clawbackaddress set to "",
+    // clawback functionality would not be possible. This also applies to the freeze address.
     // We will now clawback the 10 assets in account3. account2
     // is the clawbackaccount and must sign the transaction
     // The sender will be be the clawback adress.
@@ -283,7 +285,6 @@ let algodclient = new algosdk.Algod(token, server, port);
     // We will account for changing transaction parameters
     // before every transaction in this example
     await getChangingParms(algodclient);
-
 
     // The address for the from field must be the manager account
     // Which is currently the creator addr1
